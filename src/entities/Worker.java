@@ -1,7 +1,7 @@
 package entities;
 
 import java.util.ArrayList;
-import java.util.Calendar;
+import java.time.LocalDate;
 import java.util.List;
 
 import entities.enums.WorkerLevel;
@@ -47,7 +47,7 @@ public class Worker {
 	}
 
 	public void setBaseSalary(Double baseSalary) {
-		baseSalary = baseSalary;
+		this.baseSalary = baseSalary;
 	}
 
 	public Department getDepartment() {
@@ -72,11 +72,10 @@ public class Worker {
 	
 	public double income(Integer year, Integer month) {
 		double suma = baseSalary;
-		Calendar cal = Calendar.getInstance();
+		
 		for(HourContract c: contracts) {
-			cal.setTime(c.getDate());
-			int c_year = cal.get(Calendar.YEAR);
-			int c_month = 1+ cal.get(Calendar.MONTH);
+			int c_year = c.getDate().getYear();
+			int c_month = c.getDate().getMonthValue();
 			if(year == c_year && month == c_month) {
 				suma += c.totalValue();
 			}
@@ -84,4 +83,5 @@ public class Worker {
 		return suma;
 		
 	}
+	
 }
